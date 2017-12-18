@@ -23,6 +23,7 @@ type Result struct {
 }
 
 func main() {
+  // consumeUsers()
   http.HandleFunc("/", Serve)
   http.HandleFunc("/topup", ServeTopup)
   http.ListenAndServe(":8080", nil)
@@ -72,6 +73,7 @@ func Serve(w http.ResponseWriter, r *http.Request) {
 
     //TODO : also make case for PATCH
     case "PUT":
+      fmt.Println("Requested PUT use")
       r.ParseForm()
 
       var gopay Gopay
@@ -110,7 +112,7 @@ func ServeTopup(w http.ResponseWriter, r *http.Request) {
 
       var result Result
       use,_ := strconv.ParseFloat(r.Form.Get("amount"), 32)
-
+      
       if (gopay.ExternalId == "") {
         result = Result{gopay, "UNAUTHORIZED"}
       } else if (use <= 0) {
