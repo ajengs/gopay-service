@@ -9,7 +9,7 @@ import (
   "strconv"
 )
 
-type OrderLog struct {
+type TransactionLog struct {
   gorm.Model
   ExternalId string `json:"external_id"`
   Status string     `json:"status"`
@@ -113,23 +113,23 @@ func updateAmount(w http.ResponseWriter, r *http.Request, act string) Result {
     } else { 
       db.Model(&gopay).Update("Amount", float32(gopay.Amount) - float32(use)) 
     }
-    logOrder(w, r, act, gopay, use)
+    logTransaction(w, r, act, gopay, use)
     result = Result{gopay, "OK"}
   }
   fmt.Println(result)
   return result
 }
 
-func logOrder(w http.ResponseWriter, r *http.Request, act string, g Gopay, use float64) {
+func logTransaction(w http.ResponseWriter, r *http.Request, act string, g Gopay, use float64) {
   db := connectDB()
   
-  order := OrderLog{
+  trans := TransactionLog{
     ExternalId: r.Form.Get("order_id"),
     Status: r.Form.Get("order_status"),
     Notes: act + " " + strconv.Itoa(int(use)),
     GopayID: g.ID,
   }
-  db.Create(&order) 
+  db.Create(&trans) 
 }
 
 func connectDB() *gorm.DB {
@@ -138,7 +138,7 @@ func connectDB() *gorm.DB {
     panic("failed to connect database")
   }
   db.AutoMigrate(&Gopay{})
-  db.AutoMigrate(&OrderLog{})
+  db.AutoMigrate(&TransactionLog{})
   return db
 }
 
