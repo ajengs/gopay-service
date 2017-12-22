@@ -3,21 +3,21 @@
 The response look like this
 ```
 {
-    "Account": {
+    "account": {
         "ID": 2,
         "CreatedAt": "2017-12-17T22:28:43.211754544+07:00",
         "UpdatedAt": "2017-12-17T22:28:43.211754544+07:00",
         "DeletedAt": null,
-        "ExternalId": "1",
-        "Type": "customer",
-        "Amount": 0,
-        "Passphrase": "password"
+        "external_id": "1",
+        "type": "customer",
+        "amount": 0,
+        "passphrase": "<password>"
     },
-    "Status": "OK"
+    "status": "OK"
 }
 ```
 
-POST '/' response Status = "OK"/"FAILED"
-GET '/' response Status = "OK"/"UNAUTHORIZED"
-PUT '/' response Status = "OK"/"INSUFFICIENT"/"UNAUTHORIZED"
-PUT 'topup' Status = "OK"/"INVALID"/"UNAUTHORIZED"
+POST '/' response status = "OK"/"FAILED"
+GET '/' response status = "OK"/"UNAUTHORIZED"
+PUT '/' response status = "OK"/"INSUFFICIENT"/"UNAUTHORIZED"
+PUT 'topup' status = "OK"/"INVALID"/"UNAUTHORIZED"
